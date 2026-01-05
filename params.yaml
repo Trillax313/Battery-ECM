@@ -1,0 +1,7 @@
+R0: 0.02
+R1: 0.05
+C: 2000
+Q: 10600 #coulobs (Ah * 3600) so in this the battery capacity is 3 Ah
+Vrc: 0
+curr_SOC: 1
+
