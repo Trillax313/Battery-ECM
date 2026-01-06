@@ -1,11 +1,13 @@
 import actions
 import model
+import logger
+import matplotlib.pyplot as plt
+
+log = logger.Logger()
+battery = model.BatteryECM(model.params)
+action = actions.BatteryActions(battery,log)
 
 dt = 1
-
-battery = model.BatteryECM(model.params)
-
-action = actions.BatteryActions(battery)
 
 class HPPC():
     def run(self, battery, endSOC):
@@ -18,10 +20,19 @@ class HPPC():
             action.cc_time(0.75*battery.Q/3600, dt, 10)
             action.rest(600,dt)
             action.cc_SOC(1*battery.Q/3600, dt, targetSOC )
-        return (battery.curr_SOC)
+        
+        df = log.csv_saver('HPPC')
+        return (df)
+    
 
 
-results= HPPC()
-print(results.run(battery, 0.5))
+Hppc= HPPC()
+data = Hppc.run(battery, 0.1)
+
+
+
+plt.plot(data['Time'], data['Terminal Voltage (V)'])
+plt.show()
+
 
 
