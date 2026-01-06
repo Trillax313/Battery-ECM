@@ -5,7 +5,7 @@ import pandas as pd
 with open("params.yaml", "r") as f:
     params = yaml.safe_load(f)
 
-SOC_OCV = pd.read_csv('~/Desktop/Battery/data/SOCOCV.csv') 
+SOC_OCV = pd.read_csv(r'~\OneDrive - University of Windsor\Desktop\Battery-ECM\data\SOCOCV.csv') 
 soc = np.array(SOC_OCV['SOC'])
 ocv = np.array(SOC_OCV['OCV'])
 
