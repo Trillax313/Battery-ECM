@@ -1,11 +1,27 @@
 import actions
 import model
 
+dt = 1
+
 battery = model.BatteryECM(model.params)
 
 action = actions.BatteryActions(battery)
 
-Vrc,SOC,V = action.cc_time(5,1,100)
+class HPPC():
+    def run(self, battery, endSOC):
+        
+        while battery.curr_SOC > endSOC:
+            targetSOC = battery.curr_SOC - 0.1
+            action.rest(3600, dt)
+            action.cc_time(1*battery.Q/3600, dt, 10)
+            action.rest(600, dt)
+            action.cc_time(0.75*battery.Q/3600, dt, 10)
+            action.rest(600,dt)
+            action.cc_SOC(1*battery.Q/3600, dt, targetSOC )
+        return (battery.curr_SOC)
 
-print(action.cc_SOC(1,1,0.9))
+
+results= HPPC()
+print(results.run(battery, 0.01))
+
 
