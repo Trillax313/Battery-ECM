@@ -20,7 +20,7 @@ class HPPC():
             action.rest(3600, self.dt)
             action.cc_time(1*battery.Q/3600, self.dt, 10)
             action.rest(600, self.dt)
-            action.cc_time(0.75*battery.Q/3600, self.dt, 10)
+            action.cc_time(-0.75*battery.Q/3600, self.dt, 10)
             action.rest(600,self.dt)
             action.cc_SOC(1*battery.Q/3600, self.dt, targetSOC )
         
